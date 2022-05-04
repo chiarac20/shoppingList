@@ -1,0 +1,11 @@
+.urgency-high {
+    background-color: red
+}
+
+.urgency-medium {
+    background-color: yellow;
+}
+
+.urgency-low {
+    background-color: green;
+}

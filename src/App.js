@@ -5,8 +5,10 @@ import { addProductPath } from './pages/AddProduct/AddProductInfo';
 
 import Home from './pages/Home/Home';
 import './App.css';
-// import AddShop from './pages/AddShop/AddShop';
+import ShopDetails from './pages/ShopDetails/ShopDetails';
+import AddShop from './pages/AddShop/AddShop';
 import AddProduct from './pages/AddProduct/AddProduct';
+
 
 function App() {
   const location=useLocation();
@@ -27,11 +29,11 @@ function App() {
             <Home />
           </Route>
           <Route path="/add-shop">
-            shop page
-            {/* <AddShop /> */}
+            <AddShop />
           </Route>
           <Route path={addProductPath}>
             <AddProduct /> 
+            <ShopDetails />
           </Route>
           <Route path="*">
             <Home />

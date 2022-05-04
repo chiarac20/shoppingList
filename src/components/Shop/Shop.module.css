@@ -1,0 +1,32 @@
+.shopOverview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 2em;
+}
+
+.shop {
+    display: flex;
+    flex-direction: column;
+    border:1px rgb(7, 59, 112) solid;
+    padding: 3vw;
+    border-radius: 10px;
+    text-transform: capitalize;
+    background: radial-gradient(rgba(28, 127, 227, 0.2), rgba(28, 127, 227, 0.7));
+    margin: 2vw;
+    text-decoration: none;
+}
+
+
+.removeShopCta {
+    margin-left: 1vw; 
+    font-size: 1.5em;
+    border-radius: 10px;
+    border: none;
+}
+
+
+
+.shopDetails {
+    font-size: 1.5em;
+}
