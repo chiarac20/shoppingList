@@ -9,3 +9,15 @@
 .urgency-low {
     background-color: green;
 }
+
+.removeShopCta {
+    margin-left: 1vw; 
+    font-size: 8vw;
+    border-radius: 10px;
+    border: none;
+}
+
+.shopName {
+    text-transform: capitalize;
+    text-align: center;
+}

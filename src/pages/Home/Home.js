@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 import { MdOutlineAddShoppingCart } from 'react-icons/md';
 import classes from '../Home/Home.module.css';
-import { shopSliceActions } from "../../store/shopSlice";
 import Shop from "../../components/Shop/Shop";
 
 const Home = () => {
