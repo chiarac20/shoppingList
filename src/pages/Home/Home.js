@@ -21,7 +21,7 @@ const Home = () => {
         return {filteredByShop, filteredByUrgency};
     }
       
-    console.log(filterProducts('49469486').filteredByShop.length);
+    console.log('home', filterProducts('49469486').filteredByShop.length);
 
     return <>
         <ul className={classes.shopList}>

@@ -1,6 +1,7 @@
 import './App.css';
 import { Route, Switch, Link, useLocation } from 'react-router-dom';
 import { MdShoppingBasket } from 'react-icons/md';
+import { addProductPath } from './pages/AddProduct/AddProductsInfo';
 
 import Home from './pages/Home/Home';
 import './App.css';
@@ -13,10 +14,12 @@ function App() {
   return <main>
       <header className="header">
         <div className="header-side" />
-        <h1> My Shopping List </h1> 
-        {location.pathname!=="/add-product" && <Link to="/add-product" className="header-side-cta"> 
-          <MdShoppingBasket />
-        </Link>}
+        <h1 className="main-title"> Chiara's Shopping </h1>
+        <div className="header-side">
+          {location.pathname!==addProductPath && <Link to={addProductPath} className="header-side-cta"> 
+            <MdShoppingBasket />
+          </Link>}
+        </div>
       </header>
       <section>
         <Switch>
@@ -27,9 +30,8 @@ function App() {
             shop page
             {/* <AddShop /> */}
           </Route>
-          <Route path="/add-product">
+          <Route path={addProductPath}>
             product page
-            {/* <AddProduct /> */}
           </Route>
           <Route path="*">
             <Home />
