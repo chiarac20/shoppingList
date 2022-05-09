@@ -1,0 +1,22 @@
+.shopsSection {
+   display: grid;
+   grid-template-columns: auto auto auto;
+   gap: 2vw;
+   margin: 2vw;
+}
+
+
+.shopName {
+   list-style: none;
+   border:1px rgb(7, 59, 112) solid;
+   padding: 3vw;
+   border-radius: 10px;
+   text-align: center;
+   font-size: 1.2em;
+   background: radial-gradient(rgba(28, 127, 227, 0.2), rgba(28, 127, 227, 0.7));
+}
+
+.addShopCta {
+    text-decoration: none;
+    grid-column: 1 / 4;
+}

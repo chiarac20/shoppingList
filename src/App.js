@@ -1,7 +1,7 @@
 import './App.css';
 import { Route, Switch, Link, useLocation } from 'react-router-dom';
 import { MdShoppingBasket } from 'react-icons/md';
-import { addProductPath } from './pages/AddProduct/AddProductsInfo';
+import { addProductPath } from './pages/AddProduct/AddProductInfo';
 
 import Home from './pages/Home/Home';
 import './App.css';

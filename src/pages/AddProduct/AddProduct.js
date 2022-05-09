@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, Route, useLocation, useHistory } from 'react-router-dom';
 
@@ -6,9 +6,10 @@ import AddShop from "../AddShop/AddShop";
 import { shopSliceActions } from "../../store/shopSlice";
 import { productsSliceActions } from "../../store/productsSlice";
 import { AddShopPath } from "../AddShop/AddShopInfo";
+import classes from './AddProduct.module.css';
 
 const AddProduct = () => {
-   
+    
     const inputRef=useRef();
     const dispatch=useDispatch();
     const location=useLocation();
@@ -35,12 +36,17 @@ const AddProduct = () => {
         shopInfo = shopData;
     }
 
-
     return <>
-        {shops.map(shop => <li key={shop.shopId}>
-            <button onClick={() => onShopSelected(shop)}>{shop.shopName}</button>
-        </li>)}
-        {location.pathname!=={AddShopPath} && <Link to={AddShopPath}>Add a new shop</Link>}
+        <div className={classes.shopsSection}>
+            {shops.map(shop => <li key={shop.shopId} 
+            className={classes.shopName} 
+                onClick={() => onShopSelected(shop)}>
+                {shop.shopName}
+            </li>)}
+            {location.pathname!=={AddShopPath} && <Link to={AddShopPath} className={`${classes.shopName} ${classes.addShopCta}`}>
+                Add a new shop
+            </Link>}
+        </div>
         <Route path={AddShopPath}>
                 <AddShop onShopAdded={(shopData) => shopInfo = shopData}/>
         </Route>
