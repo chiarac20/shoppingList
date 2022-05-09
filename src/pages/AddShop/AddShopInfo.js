@@ -1,0 +1,1 @@
+export const AddShopPath='/add-product/add-a-shop';

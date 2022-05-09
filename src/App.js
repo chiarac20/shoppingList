@@ -6,7 +6,7 @@ import { addProductPath } from './pages/AddProduct/AddProductsInfo';
 import Home from './pages/Home/Home';
 import './App.css';
 // import AddShop from './pages/AddShop/AddShop';
-// import AddProduct from './pages/AddProduct/AddProduct';
+import AddProduct from './pages/AddProduct/AddProduct';
 
 function App() {
   const location=useLocation();
@@ -31,7 +31,7 @@ function App() {
             {/* <AddShop /> */}
           </Route>
           <Route path={addProductPath}>
-            product page
+            <AddProduct /> 
           </Route>
           <Route path="*">
             <Home />

@@ -1,7 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const storedState=localStorage.getItem('shops');
-const initialState=storedState ? JSON.parse(storedState) : [];
+const initialState=storedState ? JSON.parse(storedState) : [
+    { shopId: '49469486', shopName: 'Waitrose'},
+    { shopId: '39469486', shopName: 'Aldi'},
+    { shopId: '19469486', shopName: 'M&S'},
+];
 
 const shopSlice = createSlice({
     name: 'shops',
