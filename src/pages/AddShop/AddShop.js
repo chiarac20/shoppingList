@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import classes from './AddShop.module.css';
 
 const AddShop = ({onShopAdded}) => {
     const inputRef=useRef();
@@ -17,9 +18,9 @@ const AddShop = ({onShopAdded}) => {
         inputRef.current.focus();
     }, [])
 
-    return <div>
-        <label htmlFor="shop">Shop name</label>
-        <input type="text" id="shop" ref={inputRef} onBlur={addShop}/>
+    return <div className={classes.shopInputSection}>
+        <label htmlFor="shop" className={classes.shopInputLabel}>Shop name</label>
+        <input type="text" id="shop" ref={inputRef} onBlur={addShop} className={classes.shopInput}/>
     </div>
 }
 

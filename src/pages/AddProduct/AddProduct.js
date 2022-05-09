@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, Route, useLocation, useHistory } from 'react-router-dom';
 
@@ -9,13 +9,13 @@ import { AddShopPath } from "../AddShop/AddShopInfo";
 import classes from './AddProduct.module.css';
 
 const AddProduct = () => {
-    
     const inputRef=useRef();
     const dispatch=useDispatch();
     const location=useLocation();
     const history=useHistory();
     const shops=useSelector(state => state.shops);
     let shopInfo;
+    
     
     const onProductAdded = (evt) => { 
         evt.preventDefault(); 
@@ -50,9 +50,9 @@ const AddProduct = () => {
         <Route path={AddShopPath}>
                 <AddShop onShopAdded={(shopData) => shopInfo = shopData}/>
         </Route>
-        <form onSubmit={(evt) => onProductAdded(evt)}>
-            <label htmlFor="product">Add product</label>
-            <input type="text" id="product" ref={inputRef}/>
+        <form onSubmit={(evt) => onProductAdded(evt)} className={classes.productInputSection}>
+            <label htmlFor="product" className={classes.productInputLabel}>Add product</label>
+            <input type="text" id="product" ref={inputRef} className={classes.productInput}/>
         </form>
     </>
 }

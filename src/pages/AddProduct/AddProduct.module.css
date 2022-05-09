@@ -8,6 +8,7 @@
 
 .shopName {
    list-style: none;
+   text-transform: capitalize;
    border:1px rgb(7, 59, 112) solid;
    padding: 3vw;
    border-radius: 10px;
@@ -19,4 +20,23 @@
 .addShopCta {
     text-decoration: none;
     grid-column: 1 / 4;
+}
+
+.productInputSection {
+   margin: 3vw;
+   display: flex;
+   justify-content: space-between;
+}
+
+.productInputLabel {
+   font-size: 1.2em;
+   margin: 3vw;
+}
+
+.productInput {
+   font-size: 1.2em;
+   color: rgb(7, 59, 112);
+   padding: 2vw;
+   border-radius: 10px;
+   border: 1px rgb(7, 59, 112) solid;
 }
