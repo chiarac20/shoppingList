@@ -48,7 +48,7 @@ const AddProduct = () => {
             </Link>}
         </div>
         <Route path={AddShopPath}>
-                <AddShop onShopAdded={(shopData) => shopInfo = shopData}/>
+            <AddShop onShopAdded={(shopData) => shopInfo = shopData}/>
         </Route>
         <form onSubmit={(evt) => onProductAdded(evt)} className={classes.productInputSection}>
             <label htmlFor="product" className={classes.productInputLabel}>Add product</label>
