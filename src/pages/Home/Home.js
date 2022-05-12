@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { MdOutlineAddShoppingCart } from 'react-icons/md';
 import classes from '../Home/Home.module.css';
-import Shop from "../../components/Shop/Shop";
+import { shopDetailsPath } from "../ShopDetails/shopDetailsInfo";
 
 const Home = () => {
     const shops=useSelector(state => state.shops);
@@ -11,21 +11,20 @@ const Home = () => {
 
     const filterProducts = (shopId) => {
         const filteredByShop = products.filter(product => product.shopId === shopId);
-        const filteredByUrgency = filteredByShop.filter(product => product.urgency === 'high');
-        return {filteredByShop, filteredByUrgency};
+        return filteredByShop.filter(product => product.urgency === 'high');
     }
 
     return <>
         <ul className={classes.shopList}>
         {shops.map(shop => {
-            return <li key={shop.shopId} className={classes.shop} onClick={() => console.log('click shop')}>
-                <div className={classes.shopName}>{shop.shopName}</div> 
-                <div className={classes.urgentProducts}>
-                    {filterProducts(shop.shopId).filteredByUrgency.length > 0 ? `${filterProducts(shop.shopId).filteredByUrgency.length} urgent` : ''}
-                </div>
-                {filterProducts(shop.shopId).filteredByShop.map(product => <div key={product.productId}>
-                    {product.productName}
-                </div>)}
+            return <li key={shop.shopId}>
+                <Link to={`/${shop.shopId}${shopDetailsPath}`} className={classes.shop}>
+                    <div className={classes.shopName}>{shop.shopName}</div> 
+                    <div className={classes.urgentProducts}>
+                        {filterProducts(shop.shopId).length > 0 ? `${filterProducts(shop.shopId).length} urgent` : 'Nothing urgent'}
+                    </div>
+                </Link>
+                
             </li>
         })}
         </ul>

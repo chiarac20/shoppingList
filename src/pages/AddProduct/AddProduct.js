@@ -5,7 +5,7 @@ import { Link, Route, useLocation, useHistory } from 'react-router-dom';
 import AddShop from "../AddShop/AddShop";
 import { shopSliceActions } from "../../store/shopSlice";
 import { productsSliceActions } from "../../store/productsSlice";
-import { AddShopPath } from "../AddShop/AddShopInfo";
+import { addShopPath } from "../AddShop/addShopInfo";
 import classes from './AddProduct.module.css';
 
 const AddProduct = () => {
@@ -15,7 +15,6 @@ const AddProduct = () => {
     const history=useHistory();
     const shops=useSelector(state => state.shops);
     let shopInfo;
-    
     
     const onProductAdded = (evt) => { 
         evt.preventDefault(); 
@@ -43,11 +42,11 @@ const AddProduct = () => {
                 onClick={() => onShopSelected(shop)}>
                 {shop.shopName}
             </li>)}
-            {location.pathname!=={AddShopPath} && <Link to={AddShopPath} className={`${classes.shopName} ${classes.addShopCta}`}>
+            {location.pathname!=={addShopPath} && <Link to={addShopPath} className={`${classes.shopName} ${classes.addShopCta}`}>
                 Add a new shop
             </Link>}
         </div>
-        <Route path={AddShopPath}>
+        <Route path={addShopPath}>
             <AddShop onShopAdded={(shopData) => shopInfo = shopData}/>
         </Route>
         <form onSubmit={(evt) => onProductAdded(evt)} className={classes.productInputSection}>

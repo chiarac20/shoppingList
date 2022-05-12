@@ -1,13 +1,9 @@
-.urgency-high {
-    background-color: red
-}
-
-.urgency-medium {
-    background-color: yellow;
-}
-
-.urgency-low {
-    background-color: green;
+.productsList {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0;
 }
 
 .removeShopCta {
@@ -20,4 +16,8 @@
 .shopName {
     text-transform: capitalize;
     text-align: center;
+}
+
+.shopDetailsSection {
+    margin: 0 1vw 0 4vw;
 }

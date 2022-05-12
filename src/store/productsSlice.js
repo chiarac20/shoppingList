@@ -12,11 +12,11 @@ const productsSlice = createSlice({
             state.products.push(action.payload);
             localStorage.setItem('products', JSON.stringify(state.products))
         },
-        modifyQuantity(state, action) {
-            return state.products.map(product => product.productId===action.payload.productId ?
-                product.quantity + action.payload.modifier : product
-            )       
-        }
+        // modifyQuantity(state, action) {
+        //     return state.products.map(product => product.productId===action.payload.productId ?
+        //         product.quantity + action.payload.modifier : product
+        //     )       
+        // }
     }
 })
 

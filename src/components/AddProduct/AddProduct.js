@@ -27,7 +27,6 @@ const AddProduct = () => {
             return;
         }
         const product=decorateProduct(urgency);
-        console.log(product)
         dispatch(productsSliceActions.addProduct(product));
         inputRef.current.value="";
         quantityRef.current.value=1;
@@ -35,19 +34,21 @@ const AddProduct = () => {
     }
 
     return <form onSubmit={addRunningLowProduct}>
-        <div className={classes.inputSection}>
-            <span className={classes.inputLabel}><label htmlFor="product">Name</label></span>
-            
-            <input type="text" id="product" ref={inputRef} className={classes.input}/>
+        <div className={classes.inputSectionWrapper}>
+            <div className={classes.inputSection}>
+                <span className={classes.inputLabel}><label htmlFor="product">Name</label></span>
+                <input type="text" id="product" ref={inputRef} className={classes.input}/>
+            </div>
+            <div className={classes.inputSection}>
+                <label htmlFor="quantity" className={classes.inputLabel}>Quantity</label>
+                <input type="number" id="quantity" placeholder={1} ref={quantityRef} className={classes.input}/>
+            </div>
+            <div className={classes.inputSection}> 
+                <label htmlFor="unit" className={classes.inputLabel}>Unit</label>
+                <input type="text" id="unit" ref={unitRef} className={classes.input}/>
+            </div>
         </div>
-        <div className={classes.inputSection}>
-            <label htmlFor="quantity" className={classes.inputLabel}>Quantity</label>
-            <input type="number" id="quantity" placeholder={1} ref={quantityRef} className={classes.input}/>
-        </div>
-        <div className={classes.inputSection}> 
-            <label htmlFor="unit" className={classes.inputLabel}>Unit</label>
-            <input type="text" id="unit" ref={unitRef} className={classes.input}/>
-        </div>
+        
         <div className={classes.urgencyCtas}>
             <button type="button" onClick={() => addProduct('high')}>Urgent</button>
             <button type="submit">Running low</button>
