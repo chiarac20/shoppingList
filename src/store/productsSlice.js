@@ -10,10 +10,11 @@ const productsSlice = createSlice({
     reducers: {
         addProduct(state, action){
             state.products.push(action.payload);
-            localStorage.setItem('products', JSON.stringify(state.products))
+            localStorage.setItem('products', JSON.stringify(state.products));
         },
         removeProduct(state, action) {
             state.products=state.products.filter(product => product.productId!== action.payload);
+            localStorage.setItem('products', JSON.stringify(state.products));
         }
     }
 })
