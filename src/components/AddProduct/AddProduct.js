@@ -1,5 +1,7 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+
 import { productsSliceActions } from "../../store/productsSlice";
 import classes from '../AddProduct/AddProduct.module.css';
 
@@ -8,13 +10,15 @@ const AddProduct = () => {
     const quantityRef=useRef();
     const unitRef=useRef();
     const dispatch=useDispatch();
+    const params=useParams();
+    const shopId=params.shopId;
 
     const decorateProduct = (urgencyValue) => {
         const productName=inputRef.current.value;
         const quantity=+quantityRef.current.value || 1;
         const unit=unitRef.current.value || '';
         const productId=Math.random().toFixed(6).substring(2);
-        return {productName, quantity, unit, productId, urgency: urgencyValue, shopId: 1};
+        return {productName, quantity, unit, productId, urgency: urgencyValue, shopId};
     }
     const addRunningLowProduct = (evt) => {
         evt.preventDefault();
@@ -48,7 +52,6 @@ const AddProduct = () => {
                 <input type="text" id="unit" ref={unitRef} className={classes.input}/>
             </div>
         </div>
-        
         <div className={classes.urgencyCtas}>
             <button type="button" onClick={() => addProduct('high')}>Urgent</button>
             <button type="submit">Running low</button>
