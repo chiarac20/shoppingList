@@ -17,7 +17,8 @@
     background-color: rgba(14, 130, 45, 0.7);
 }
 
-.edit {
+.edit, .removeShopCta {
     font-size: 1.3em;
-    margin: 0 5vw 0 0;
+    background-color: inherit;
+    border: none;
 }
