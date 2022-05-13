@@ -1,11 +1,12 @@
-import { useRef } from "react";
+import { useRef, useImperativeHandle, forwardRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { productsSliceActions } from "../../store/productsSlice";
 import classes from '../AddProduct/AddProduct.module.css';
 
-const AddProduct = () => {
+const AddProduct = forwardRef((props, ref) => {
+    const [productToEdit, setProductToEdit]=useState({});
     const inputRef=useRef();
     const quantityRef=useRef();
     const unitRef=useRef();
@@ -13,13 +14,35 @@ const AddProduct = () => {
     const params=useParams();
     const shopId=params.shopId;
 
-    const decorateProduct = (urgencyValue) => {
+    useImperativeHandle(ref, () => ({
+        editInput: (product) => {
+          setProductToEdit(product);
+          inputRef.current.value=product.productName;
+          quantityRef.current.value=product.quantity;
+          unitRef.current.value=product.unit;
+        },
+    }));
+    
+    const editProduct = (product) => {
+        dispatch(productsSliceActions.editProduct(product));
+        inputRef.current.value="";
+        quantityRef.current.value=1;
+        unitRef.current.value="";
+    }
+
+    const getEnteredInput = (urgencyValue) => {
         const productName=inputRef.current.value;
         const quantity=+quantityRef.current.value || 1;
         const unit=unitRef.current.value || '';
-        const productId=Math.random().toFixed(6).substring(2);
-        return {productName, quantity, unit, productId, urgency: urgencyValue, shopId};
+        return {productName, quantity, unit, urgency: urgencyValue};
     }
+
+    const decorateProduct = (urgencyValue) => {
+        const product = getEnteredInput(urgencyValue);
+        const productId=Math.random().toFixed(6).substring(2);
+        return {...product, productId, urgency: urgencyValue, shopId};
+    }
+
     const addRunningLowProduct = (evt) => {
         evt.preventDefault();
         addProduct('medium');
@@ -28,6 +51,18 @@ const AddProduct = () => {
         const productName=inputRef.current.value;
         if(!productName.trim()) {
             inputRef.current.focus();
+            return;
+        }
+        if(productToEdit) {
+            const enteredValues=getEnteredInput(urgency);
+            const editedProduct= {
+                ...productToEdit, 
+                productName: enteredValues.productName, 
+                quantity: enteredValues.quantity, 
+                unit: enteredValues.unit, 
+                urgency: enteredValues.urgency
+            };
+            editProduct(editedProduct);
             return;
         }
         const product=decorateProduct(urgency);
@@ -58,6 +93,6 @@ const AddProduct = () => {
             <button type="button" onClick={() => addProduct('low')}>Only if on sale</button>
         </div>
     </form>
-}
+})
 
 export default AddProduct;

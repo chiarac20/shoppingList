@@ -12,8 +12,20 @@ const productsSlice = createSlice({
             state.products.push(action.payload);
             localStorage.setItem('products', JSON.stringify(state.products));
         },
-        removeProduct(state, action) {
+        removeProduct(state, action){
             state.products=state.products.filter(product => product.productId!== action.payload);
+            localStorage.setItem('products', JSON.stringify(state.products));
+        },
+        editProduct (state, action){
+            state.products=state.products.map(product => product.productId === action.payload.productId ? 
+                {
+                    ...product, 
+                    productName: action.payload.productName, 
+                    quantity: action.payload.quantity, 
+                    unit: action.payload.unit, 
+                    urgency: action.payload.urgency
+                } 
+            : product);
             localStorage.setItem('products', JSON.stringify(state.products));
         }
     }

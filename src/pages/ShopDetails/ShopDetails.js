@@ -1,11 +1,13 @@
 import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useRef } from "react";
 import classes from "../ShopDetails/ShopDetails.module.css";
 import AddProduct from '../../components/AddProduct/AddProduct';
 import SingleProduct from "../../components/SingleProduct/SingleProduct";
 import { MdDelete } from 'react-icons/md';
 
 const ShopDetails = () => {
+    const addProductRef=useRef();
     const params = useParams();
     const products = useSelector(state => state.products.products);
     const shops = useSelector(state => state.shops);
@@ -15,18 +17,22 @@ const ShopDetails = () => {
     const mediumUrgencyProducts = shopProducts.filter(product => product.urgency === "medium");
     const lowUrgencyProducts = shopProducts.filter(product => product.urgency === "low");
 
+    const editProduct = (product) => {
+        addProductRef.current.editInput(product);
+    }
+
     return<div className={classes.shopDetailsSection}>
-        <AddProduct />
+        <AddProduct ref={addProductRef}/>
         <h3 className={classes.shopName}>{selectedShop.shopName}</h3>
         <ul className={classes.productsList}>
             {highUrgencyProducts && highUrgencyProducts.map(product => <li key={product.productId}>
-                <SingleProduct product={product}/>
+                <SingleProduct product={product} editProduct={editProduct}/>
             </li>)}  
             {mediumUrgencyProducts && mediumUrgencyProducts.map(product => <li key={product.productId}>
-                <SingleProduct product={product}/>
+                <SingleProduct product={product} editProduct={editProduct}/>
             </li>)} 
             {lowUrgencyProducts && lowUrgencyProducts.map(product => <li key={product.productId}>
-            <SingleProduct product={product}/>
+                <SingleProduct product={product} editProduct={editProduct}/>
             </li>)} 
         </ul>
         <button className={classes.removeShopCta}>
