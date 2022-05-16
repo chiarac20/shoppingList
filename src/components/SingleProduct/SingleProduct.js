@@ -15,11 +15,13 @@ const SingleProduct = ({product, editProduct}) => {
 
     return <div className={classes[`urgency-${product.urgency}`]}>
         <div className={classes.product}> 
-            <input type="checkbox" checked={checkboxState} onChange={() => setCheckboxState(!checkboxState)}/>
-            <div onClick={() => setCheckboxState(!checkboxState)}>
-                <div>{product.productName}</div>
+            <input type="checkbox" checked={checkboxState} className={classes.inputCheckbox}
+                onChange={() => setCheckboxState(!checkboxState)}
+            />
+            <div onClick={() => setCheckboxState(!checkboxState)} className={classes.productDetails}>
+                <div className={classes.productName}>{product.productName}</div>
                 <div>{product.quantity===1 && product.unit ? product.quantity : ''}</div>
-                <div>{product.quantity>1 && product.quantity}</div> {product.unit || ''}
+                <div className={classes.quantity}>{product.quantity>1 && product.quantity}</div> {product.unit || ''}
             </div>
             {checkboxState && <button className={classes.removeShopCta} onClick={() => removeProduct(product.productId)}><MdDelete /></button>}
             <div className={classes.edit} onClick={() => editProduct(product)}><MdOutlineModeEdit /></div>

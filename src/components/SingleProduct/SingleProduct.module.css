@@ -6,19 +6,38 @@
 }
 
 .urgency-high {
-    background-color: rgba(227, 79, 20, 0.8);
+    background-color: rgba(252, 3, 3, 0.6);
 }
 
 .urgency-medium {
-    background-color: rgba(238, 245, 42, 0.7);
+    background-color: rgba(252, 240, 3, 0.7);
 }
 
 .urgency-low {
-    background-color: rgba(14, 130, 45, 0.7);
+    background-color: rgba(54, 207, 69, 0.7);
+}
+
+.quantity {
+    margin: 0 1vw;
+}
+
+.productName {
+    margin: 0 5vw;
+}
+
+.productDetails {
+    display: flex;
+    justify-content: space-between;
 }
 
 .edit, .removeShopCta {
     font-size: 1.3em;
     background-color: inherit;
     border: none;
+    color: rgb(7, 59, 112);
+}
+
+.inputCheckbox {
+    width: 5vw;
+    height: 5vw;
 }

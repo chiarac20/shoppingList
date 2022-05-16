@@ -23,7 +23,12 @@ const ShopDetails = () => {
 
     return<div className={classes.shopDetailsSection}>
         <AddProduct ref={addProductRef}/>
-        <h3 className={classes.shopName}>{selectedShop.shopName}</h3>
+        <div className={classes.shopNameSection}>
+            <h2 className={classes.shopName}>{selectedShop.shopName}</h2>
+            <button className={classes.removeShopCta}>
+                <MdDelete />
+            </button>
+        </div>
         <ul className={classes.productsList}>
             {highUrgencyProducts && highUrgencyProducts.map(product => <li key={product.productId}>
                 <SingleProduct product={product} editProduct={editProduct}/>
@@ -35,9 +40,6 @@ const ShopDetails = () => {
                 <SingleProduct product={product} editProduct={editProduct}/>
             </li>)} 
         </ul>
-        <button className={classes.removeShopCta}>
-            <MdDelete />
-        </button>
     </div>
 }
 
