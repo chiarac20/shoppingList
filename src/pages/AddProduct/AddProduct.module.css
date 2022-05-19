@@ -3,18 +3,11 @@
    grid-template-columns: auto auto auto;
    gap: 2vw;
    margin: 2vw;
+   list-style: none;
 }
 
-
-.shopName {
-   list-style: none;
-   text-transform: capitalize;
-   border:1px rgb(7, 59, 112) solid;
-   padding: 3vw;
-   border-radius: 10px;
+.title {
    text-align: center;
-   font-size: 1.2em;
-   background: radial-gradient(rgba(28, 127, 227, 0.2), rgba(28, 127, 227, 0.7));
 }
 
 .addShopCta {

@@ -1,0 +1,15 @@
+.shopName {
+    list-style: none;
+    text-transform: capitalize;
+    border:1px rgb(7, 59, 112) solid;
+    padding: 2.5vw;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.2em;
+    background: radial-gradient(rgba(28, 127, 227, 0.2), rgba(28, 127, 227, 0.6));
+} 
+
+.selected {
+    background: radial-gradient(rgba(28, 127, 255, 0.5), rgba(28, 127, 255, 1));
+} 
+

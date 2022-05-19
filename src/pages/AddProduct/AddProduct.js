@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, Route, useLocation, useHistory } from 'react-router-dom';
 
@@ -7,6 +7,7 @@ import { shopSliceActions } from "../../store/shopSlice";
 import { productsSliceActions } from "../../store/productsSlice";
 import { addShopPath } from "../AddShop/addShopInfo";
 import classes from './AddProduct.module.css';
+import SingleShop from "../../components/SingleShop/SingleShop";
 
 const AddProduct = () => {
     const inputRef=useRef();
@@ -14,7 +15,11 @@ const AddProduct = () => {
     const location=useLocation();
     const history=useHistory();
     const shops=useSelector(state => state.shops);
+    const shopsSelectionInfo = shops.map(shop => ({shopId: shop.shopId, isSelected: false}));
+    const [shopsSelection, setShopsSelection]=useState(shopsSelectionInfo);
     let shopInfo;
+
+    
     
     const onProductAdded = (evt) => { 
         evt.preventDefault(); 
@@ -30,19 +35,23 @@ const AddProduct = () => {
         history.push("/homepage");
     }
 
-    const onShopSelected = (shopData) => {
-        inputRef.current.focus();
-        shopInfo = shopData;
+    const shopClickHandler = (shopId) => {
+        const updatedShopsSelection = shopsSelection.map(shop => (shopId === shop.shopId ? {...shop, isSelected: !shop.isSelected} : shop));
+        setShopsSelection(updatedShopsSelection);
+    }
+
+    const getSelection = (shopId) => {
+        const shop=shopsSelection.find(shop => shopId===shop.shopId);
+        return shop.isSelected;
     }
 
     return <>
+        <h2 className={classes.title}>Add a product to multiple shops</h2>
         <div className={classes.shopsSection}>
-            {shops.map(shop => <li key={shop.shopId} 
-            className={classes.shopName} 
-                onClick={() => onShopSelected(shop)}>
-                {shop.shopName}
+            {shops.map(shop => <li key={shop.shopId}> 
+                <SingleShop shop={shop} onShopClicked={() => shopClickHandler(shop.shopId)} selected={getSelection(shop.shopId)}/>
             </li>)}
-            {location.pathname!=={addShopPath} && <Link to={addShopPath} className={`${classes.shopName} ${classes.addShopCta}`}>
+            {location.pathname==={addShopPath} || <Link to={addShopPath} className={`${classes.shopName} ${classes.addShopCta}`}>
                 Add a new shop
             </Link>}
         </div>
