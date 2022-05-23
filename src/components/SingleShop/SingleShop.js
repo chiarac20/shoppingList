@@ -1,9 +1,9 @@
 import classes from '../SingleShop/SingleShop.module.css';
 
-const SingleShop = ({shop, onShopClicked, selected}) => {
-    const shopClasses = `${classes.shopName} ${selected ? classes.selected : ''}`;
+const SingleShop = ({shop, onShopClicked}) => {
+    const shopClasses = `${classes.shopName} ${shop.isSelected ? classes.selected : ''}`;
 
-    return <div className={shopClasses} onClick={onShopClicked} selected={selected}>
+    return <div className={shopClasses} onClick={onShopClicked} selected={shop.isSelected}>
         {shop.shopName}
     </div>
 }
