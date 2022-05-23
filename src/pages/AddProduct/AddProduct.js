@@ -48,15 +48,13 @@ const AddProduct = () => {
     return <>
         <h2 className={classes.title}>Add a product to multiple shops</h2>
         <div className={classes.shopsSection}>
-            {shops.map(shop => <li key={shop.shopId}> 
-                <SingleShop shop={shop} onShopClicked={() => shopClickHandler(shop.shopId)} selected={getSelection(shop.shopId)}/>
-            </li>)}
-            {location.pathname==={addShopPath} || <Link to={addShopPath} className={`${classes.shopName} ${classes.addShopCta}`}>
+            {shops.map(shop => <SingleShop key={shop.shopId} shop={shop} onShopClicked={() => shopClickHandler(shop.shopId)} selected={getSelection(shop.shopId)}/>)}
+            {location.pathname==={addShopPath} || <Link to={addShopPath} className={classes.addShopCta}>
                 Add a new shop
             </Link>}
         </div>
         <Route path={addShopPath}>
-            <AddShop onShopAdded={(shopData) => shopInfo = shopData}/>
+            <AddShop  onShopAdded={(shopData) => shopInfo = shopData}/>
         </Route>
         <form onSubmit={(evt) => onProductAdded(evt)} className={classes.productInputSection}>
             <label htmlFor="product" className={classes.productInputLabel}>Add product</label>

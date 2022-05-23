@@ -3,6 +3,9 @@
     text-transform: capitalize;
     border:1px rgb(7, 59, 112) solid;
     padding: 2.5vw;
+    margin: 1vw 2vw;
+    flex: 1 0 20vw;
+    max-width:  23vw;
     border-radius: 10px;
     text-align: center;
     font-size: 1.2em;
