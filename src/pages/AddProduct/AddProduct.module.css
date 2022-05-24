@@ -40,3 +40,7 @@
    border-radius: 10px;
    border: 1px rgb(7, 59, 112) solid;
 }
+
+.addProductSubtitle {
+   text-align: center;
+}

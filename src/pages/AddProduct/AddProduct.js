@@ -8,29 +8,19 @@ import { productsSliceActions } from "../../store/productsSlice";
 import { addShopPath } from "../AddShop/addShopInfo";
 import classes from './AddProduct.module.css';
 import SingleShop from "../../components/SingleShop/SingleShop";
+import AddProduct from "../../components/AddProduct/AddProduct";
 
-const AddProduct = () => {
+const AddProductPage = () => {
     const inputRef=useRef();
     const dispatch=useDispatch();
     const location=useLocation();
     const history=useHistory();
     const shops=useSelector(state => state.shops);
+    const selectedShops = shops?.filter(shop => shop.isSelected) || [];
+    const shopIds=selectedShops?.map(shop => shop.shopId) || [];
     
-    const onProductAdded = (evt) => { 
-        evt.preventDefault(); 
-        const productName=inputRef.current.value;
-        if(!productName.trim()) {
-            inputRef.current.focus();
-            return;
-        }
-        const productId = Math.random().toFixed(8).substring(2);
-        //to be checked
-        const productInfo = {productName, productQuantity: 1, productId, shopId: 'to be defined', urgency: 'medium'}
-        dispatch(productsSliceActions.addProduct(productInfo));
-        // dispatch(shopSliceActions.addShop(shopInfo));
-        history.push("/homepage");
-    }
-
+   
+    // history.push("/homepage");
     const shopClickHandler = (shopId) => {
         dispatch(shopSliceActions.changeSelection(shopId));
     }
@@ -44,13 +34,11 @@ const AddProduct = () => {
             </Link>}
         </div>
         <Route path={addShopPath}>
-            <AddShop  onShopAdded={''}/>
+            <AddShop />
         </Route>
-        <form onSubmit={(evt) => onProductAdded(evt)} className={classes.productInputSection}>
-            <label htmlFor="product" className={classes.productInputLabel}>Add product</label>
-            <input type="text" id="product" ref={inputRef} className={classes.productInput}/>
-        </form>
+        <h3 className={classes.addProductSubtitle}>Add a product to all selected shops</h3>
+        <AddProduct shopIds={shopIds}/>
     </>
 }
 
-export default AddProduct;
+export default AddProductPage;

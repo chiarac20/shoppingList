@@ -9,18 +9,22 @@ import { MdDelete } from 'react-icons/md';
 const ShopDetails = () => {
     const addProductRef=useRef();
     const params = useParams();
-    const products = useSelector(state => state.products.products);
-    const shops = useSelector(state => state.shops);
-    const selectedShop = shops.find(shop => shop.shopId === params.shopId);
-    const shopProducts = products.filter(product => product.shopId === params.shopId);
-    const highUrgencyProducts = shopProducts.filter(product => product.urgency === "high");
-    const mediumUrgencyProducts = shopProducts.filter(product => product.urgency === "medium");
-    const lowUrgencyProducts = shopProducts.filter(product => product.urgency === "low");
+    const shopId = params.shopId;
 
-    const editProduct = (product) => {
+    const getShopProductsById = product => product.shopId.find(id => id === shopId);
+    const getShopProducts = products => products.filter(product => getShopProductsById(product));
+    const products = useSelector(state => state.products.products);
+    const shopProducts = getShopProducts(products);
+    const shops = useSelector(state => state.shops);
+    const selectedShop = shops.find(shop => shop.shopId === shopId);
+    const highUrgencyProducts = shopProducts?.filter(product => product.urgency === "high");
+    const mediumUrgencyProducts = shopProducts?.filter(product => product.urgency === "medium");
+    const lowUrgencyProducts = shopProducts?.filter(product => product.urgency === "low");
+   
+    const editProduct = product => {
         addProductRef.current.editInput(product);
     }
-
+    
     return<div className={classes.shopDetailsSection}>
         <AddProduct ref={addProductRef}/>
         <div className={classes.shopNameSection}>

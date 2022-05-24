@@ -5,7 +5,7 @@ import { MdShoppingBasket } from 'react-icons/md';
 import './App.css';
 import Home from './pages/Home/Home';
 import AddShop from './pages/AddShop/AddShop';
-import AddProduct from './pages/AddProduct/AddProduct';
+import AddProductPage from './pages/AddProduct/AddProduct';
 import ShopDetails from './pages/ShopDetails/ShopDetails';
 import { addProductPath } from './pages/AddProduct/addProductInfo';
 import { homePath } from './pages/Home/homeInfo';
@@ -36,7 +36,7 @@ function App() {
           <AddShop />
         </Route>
         <Route path={addProductPath}>
-          <AddProduct /> 
+          <AddProductPage /> 
         </Route>
         <Route path={`/:shopId${shopDetailsPath}`}>
           <ShopDetails /> 

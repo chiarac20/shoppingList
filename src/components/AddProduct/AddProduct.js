@@ -6,13 +6,13 @@ import { productsSliceActions } from "../../store/productsSlice";
 import classes from '../AddProduct/AddProduct.module.css';
 
 const AddProduct = forwardRef((props, ref) => {
-    const [productToEdit, setProductToEdit]=useState({});
+    const [productToEdit, setProductToEdit]=useState();
     const inputRef=useRef();
     const quantityRef=useRef();
     const unitRef=useRef();
     const dispatch=useDispatch();
     const params=useParams();
-    const shopId=params.shopId;
+    const shopId=params?.shopId || null;
 
     useImperativeHandle(ref, () => ({
         editInput: (product) => {
@@ -40,7 +40,10 @@ const AddProduct = forwardRef((props, ref) => {
     const decorateProduct = (urgencyValue) => {
         const product = getEnteredInput(urgencyValue);
         const productId=Math.random().toFixed(6).substring(2);
-        return {...product, productId, urgency: urgencyValue, shopId};
+        console.log(shopId ? {...product, productId, urgency: urgencyValue, shopId: [shopId]}
+            : {...product, productId, urgency: urgencyValue, shopId: [props.shopIds]})
+        return shopId ? {...product, productId, urgency: urgencyValue, shopId: [shopId]}
+        : {...product, productId, urgency: urgencyValue, shopId: props.shopIds};
     }
 
     const addRunningLowProduct = (evt) => {
@@ -51,6 +54,10 @@ const AddProduct = forwardRef((props, ref) => {
         const productName=inputRef.current.value;
         if(!productName.trim()) {
             inputRef.current.focus();
+            return;
+        }
+        if(!shopId && !props.shopIds.length) {
+            alert('Select a shop')
             return;
         }
         if(productToEdit) {
@@ -89,7 +96,7 @@ const AddProduct = forwardRef((props, ref) => {
         </div>
         <div className={classes.urgencyCtas}>
             <button type="button" onClick={() => addProduct('high')}>Urgent</button>
-            <button type="submit">Running low</button>
+            <button type="button" onClick={() => addProduct('medium')}>Running low</button>
             <button type="button" onClick={() => addProduct('low')}>Only if on sale</button>
         </div>
     </form>
