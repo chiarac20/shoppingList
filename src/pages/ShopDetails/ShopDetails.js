@@ -1,15 +1,20 @@
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useParams, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { useRef } from "react";
 import classes from "../ShopDetails/ShopDetails.module.css";
 import AddProduct from '../../components/AddProduct/AddProduct';
 import SingleProduct from "../../components/SingleProduct/SingleProduct";
+import { productsSliceActions } from "../../store/productsSlice";
+import { shopSliceActions } from "../../store/shopSlice";
 import { MdDelete } from 'react-icons/md';
+import { homePath } from "../Home/homeInfo";
 
 const ShopDetails = () => {
     const addProductRef=useRef();
     const params = useParams();
+    const dispatch=useDispatch();
     const shopId = params.shopId;
+    const history = useHistory();
 
     const getShopProductsById = product => product.shopId.find(id => id === shopId);
     const getShopProducts = products => products.filter(product => getShopProductsById(product));
@@ -24,12 +29,20 @@ const ShopDetails = () => {
     const editProduct = product => {
         addProductRef.current.editInput(product);
     }
+
+    const deleteShopContent = () => {
+        shopProducts.forEach(({productId}) => {
+            dispatch(productsSliceActions.removeProduct(productId));
+        })
+        dispatch(shopSliceActions.removeShop(shopId));
+        history.replace(homePath);
+    }
     
     return<div className={classes.shopDetailsSection}>
         <AddProduct ref={addProductRef}/>
         <div className={classes.shopNameSection}>
             <h2 className={classes.shopName}>{selectedShop.shopName}</h2>
-            <button className={classes.removeShopCta}>
+            <button className={classes.removeShopCta} onClick={deleteShopContent}>
                 <MdDelete />
             </button>
         </div>
