@@ -1,26 +1,21 @@
-import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, Route, useLocation, useHistory } from 'react-router-dom';
+import { Link, Route, useLocation } from 'react-router-dom';
 
 import AddShop from "../AddShop/AddShop";
 import { shopSliceActions } from "../../store/shopSlice";
-import { productsSliceActions } from "../../store/productsSlice";
 import { addShopPath } from "../AddShop/addShopInfo";
 import classes from './AddProduct.module.css';
 import SingleShop from "../../components/SingleShop/SingleShop";
 import AddProduct from "../../components/AddProduct/AddProduct";
 
 const AddProductPage = () => {
-    const inputRef=useRef();
+
     const dispatch=useDispatch();
     const location=useLocation();
-    const history=useHistory();
     const shops=useSelector(state => state.shops);
     const selectedShops = shops?.filter(shop => shop.isSelected) || [];
     const shopIds=selectedShops?.map(shop => shop.shopId) || [];
     
-   
-    // history.push("/homepage");
     const shopClickHandler = (shopId) => {
         dispatch(shopSliceActions.changeSelection(shopId));
     }

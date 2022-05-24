@@ -21,7 +21,7 @@ const Home = () => {
                 <Link to={`/${shop.shopId}${shopDetailsPath}`} className={classes.shop}>
                     <div className={classes.shopName}>{shop.shopName}</div> 
                     <div className={classes.urgentProducts}>
-                        {filterProducts(shop.shopId).length > 0 ? `${filterProducts(shop.shopId).length} urgent` : 'Nothing urgent'}
+                        {filterProducts(shop.shopId).length > 0 ? `${filterProducts(shop.shopId).length} urgent` : 'TO BE FIXED'}
                     </div>
                 </Link>
                 
@@ -29,6 +29,7 @@ const Home = () => {
         })}
         </ul>
         <Link to="/add-shop" className={`${classes.shop} ${classes.trolley}`}> 
+        to be fixed
             <MdOutlineAddShoppingCart />
         </Link>  
     </>

@@ -1,6 +1,6 @@
 import { useRef, useImperativeHandle, forwardRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 import { productsSliceActions } from "../../store/productsSlice";
 import { shopSliceActions } from "../../store/shopSlice";
@@ -13,6 +13,7 @@ const AddProduct = forwardRef((props, ref) => {
     const unitRef=useRef();
     const dispatch=useDispatch();
     const params=useParams();
+    const history=useHistory();
     const shopId=params?.shopId || null;
 
     useImperativeHandle(ref, () => ({
@@ -77,6 +78,9 @@ const AddProduct = forwardRef((props, ref) => {
         inputRef.current.value="";
         quantityRef.current.value=1;
         unitRef.current.value="";
+        if(!shopId) {
+            history.push("/homepage");
+        }
     }
 
     return <form onSubmit={addRunningLowProduct}>
