@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 import { MdOutlineAddShoppingCart } from 'react-icons/md';
 import classes from '../Home/Home.module.css';
 import { shopDetailsPath } from "../ShopDetails/shopDetailsInfo";
+import { addShopPath } from "../AddShop/addShopInfo";
 
 const Home = () => {
     const shops=useSelector(state => state.shops);
     const products=useSelector(state => state.products.products);
 
-    
     const filterProducts = (shopId) => {
         const getShopProductsById = product => product.shopId.find(id => id === shopId);
         const getShopProducts = products => products.filter(product => getShopProductsById(product));
@@ -27,12 +27,10 @@ const Home = () => {
                         {filterProducts(shop.shopId).length > 0 ? `${filterProducts(shop.shopId).length} urgent` : <div className={classes.nothingUrgent}>Nothing urgent</div>}
                     </div>
                 </Link>
-                
             </li>
         })}
         </ul>
-        <Link to="/add-shop" className={`${classes.shop} ${classes.trolley}`}> 
-        to be fixed
+        <Link to={addShopPath} className={`${classes.shop} ${classes.trolley}`}> 
             <MdOutlineAddShoppingCart />
         </Link>  
     </>

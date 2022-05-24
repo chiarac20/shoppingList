@@ -1,6 +1,6 @@
 import './App.css';
 import { Route, Switch, Link, useLocation } from 'react-router-dom';
-import { MdShoppingBasket } from 'react-icons/md';
+import { MdShoppingBasket, MdHome } from 'react-icons/md';
 
 import './App.css';
 import Home from './pages/Home/Home';
@@ -19,10 +19,14 @@ function App() {
 
   return <>
     <header className="header">
-      <div className="header-side" />
+      <div className="header-side">
+        {location.pathname!==homePath && <Link to={homePath} className="header-side-cta">
+          <MdHome />
+        </Link>}
+      </div>
       <h1 className="main-title"> Chiara's Shopping </h1>
       <div className="header-side">
-        {location.pathname!==addProductPath && <Link to={addProductPath} className="header-side-cta"> 
+        {location.pathname!==addProductPath && <Link to={addProductPath} className={`header-side-cta shopping-basket`}> 
           <MdShoppingBasket />
         </Link>}
       </div>

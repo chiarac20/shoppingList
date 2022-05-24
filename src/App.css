@@ -21,11 +21,6 @@ section {
     overflow-y: scroll;
 }
 
-.header-side {
-    display: block;
-    width: 3.7em; 
-}
-
 .header-side-cta {
     font-size: 1.5em;
     border: 4px rgb(7, 59, 112) double;
@@ -34,8 +29,17 @@ section {
     border-radius: 7px;
     padding: 1.5vw 1.5vw 0 1.5vw;
     min-width: 25px;
-    margin: 0;
+    margin: 3vw;
 }
+
+.header-side {
+    display: block;
+    width: 20vw;
+}
+
+.shopping-basket {
+    padding: 2vw 1.5vw 0.5vw 1.5vw;
+} 
 
 #root {
     display: flex;

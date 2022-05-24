@@ -98,6 +98,7 @@ const AddProduct = forwardRef((props, ref) => {
                 <input type="text" id="unit" ref={unitRef} className={classes.input}/>
             </div>
         </div>
+        <button type="submit" className={classes.submitButton}></button>
         <div className={classes.urgencyCtas}>
             <button type="button" onClick={() => addProduct('high')}>Urgent</button>
             <button type="button" onClick={() => addProduct('medium')}>Running low</button>
