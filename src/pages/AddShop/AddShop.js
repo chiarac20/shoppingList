@@ -18,7 +18,7 @@ const AddShop = () => {
             return;
         }
         const shopId = Math.random().toFixed(8).substring(2);
-        dispatch(shopSliceActions.addShop({shopId, shopName, isSelected: false}));
+        dispatch(shopSliceActions.addShop({shopId, shopName, isSelected: true}));
         history.replace('/add-product');
     }
 

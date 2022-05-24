@@ -16,11 +16,16 @@ const shopSlice = createSlice({
             localStorage.setItem("shops", JSON.stringify(updatedState));
             return updatedState;
         },
-        changeSelection(state, action) {
+        changeSelection(state, action){
             const updatedShopsSelection = state.map(shop => shop.shopId === action.payload ? {...shop, isSelected:!shop.isSelected} : {...shop});
             localStorage.setItem("shops", JSON.stringify(updatedShopsSelection));
             return updatedShopsSelection;
-        } 
+        }, 
+        unselectAll(state){
+            const updatedState = state.map(shop => ({...shop, isSelected: false}));
+            localStorage.setItem("shops", JSON.stringify(updatedState));
+            return updatedState;
+        }
     }
 })
 

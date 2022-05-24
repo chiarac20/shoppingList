@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { productsSliceActions } from "../../store/productsSlice";
+import { shopSliceActions } from "../../store/shopSlice";
 import classes from '../AddProduct/AddProduct.module.css';
 
 const AddProduct = forwardRef((props, ref) => {
@@ -40,8 +41,6 @@ const AddProduct = forwardRef((props, ref) => {
     const decorateProduct = (urgencyValue) => {
         const product = getEnteredInput(urgencyValue);
         const productId=Math.random().toFixed(6).substring(2);
-        console.log(shopId ? {...product, productId, urgency: urgencyValue, shopId: [shopId]}
-            : {...product, productId, urgency: urgencyValue, shopId: [props.shopIds]})
         return shopId ? {...product, productId, urgency: urgencyValue, shopId: [shopId]}
         : {...product, productId, urgency: urgencyValue, shopId: props.shopIds};
     }
@@ -74,6 +73,7 @@ const AddProduct = forwardRef((props, ref) => {
         }
         const product=decorateProduct(urgency);
         dispatch(productsSliceActions.addProduct(product));
+        dispatch(shopSliceActions.unselectAll());
         inputRef.current.value="";
         quantityRef.current.value=1;
         unitRef.current.value="";
