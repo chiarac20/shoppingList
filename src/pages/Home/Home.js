@@ -9,9 +9,12 @@ const Home = () => {
     const shops=useSelector(state => state.shops);
     const products=useSelector(state => state.products.products);
 
+    
     const filterProducts = (shopId) => {
-        const filteredByShop = products.filter(product => product.shopId === shopId);
-        return filteredByShop.filter(product => product.urgency === 'high');
+        const getShopProductsById = product => product.shopId.find(id => id === shopId);
+        const getShopProducts = products => products.filter(product => getShopProductsById(product));
+        const filteredProducts = getShopProducts(products).filter(product => product.urgency === 'high');
+        return filteredProducts;
     }
 
     return <>
@@ -21,7 +24,7 @@ const Home = () => {
                 <Link to={`/${shop.shopId}${shopDetailsPath}`} className={classes.shop}>
                     <div className={classes.shopName}>{shop.shopName}</div> 
                     <div className={classes.urgentProducts}>
-                        {filterProducts(shop.shopId).length > 0 ? `${filterProducts(shop.shopId).length} urgent` : 'TO BE FIXED'}
+                        {filterProducts(shop.shopId).length > 0 ? `${filterProducts(shop.shopId).length} urgent` : <div className={classes.nothingUrgent}>Nothing urgent</div>}
                     </div>
                 </Link>
                 

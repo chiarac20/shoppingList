@@ -35,3 +35,7 @@
     font-size: 0.8em;
     padding: 1vw;
 }
+
+.nothingUrgent {
+    color: rgb(7, 59, 112);
+}
