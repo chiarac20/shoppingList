@@ -13,9 +13,10 @@ const SingleProduct = ({product, editProduct}) => {
         dispatch(productsSliceActions.removeProduct(id));
     }
 
-    return <div className={classes[`urgency-${product.urgency}`]}>
-        <div className={classes.product}> 
-            <input type="checkbox" checked={checkboxState} className={classes.inputCheckbox}
+    return <div className={classes.product}> 
+        <div className={classes.productSection}>
+            <input type="checkbox" checked={checkboxState} 
+                className={`${classes.inputCheckbox} ${classes[product.urgency]}`}
                 onChange={() => setCheckboxState(!checkboxState)}
             />
             <div onClick={() => setCheckboxState(!checkboxState)} className={classes.productDetails}>
@@ -23,10 +24,12 @@ const SingleProduct = ({product, editProduct}) => {
                 <div>{product.quantity===1 && product.unit ? product.quantity : ''}</div>
                 <div className={classes.quantity}>{product.quantity>1 && product.quantity}</div> {product.unit || ''}
             </div>
-            {checkboxState && <button className={classes.removeShopCta} onClick={() => removeProduct(product.productId)}><MdDelete /></button>}
-            <div className={classes.edit} onClick={() => editProduct(product)}><MdOutlineModeEdit /></div>
-        </div>   
-    </div>
+        </div>
+        <div className={classes.actionSection}>
+        {checkboxState && <MdDelete className={classes.removeShopCta} onClick={() => removeProduct(product.productId)} />}
+        <MdOutlineModeEdit className={classes.edit} onClick={() => editProduct(product)} />
+        </div>
+    </div>   
 }
 
 export default SingleProduct;

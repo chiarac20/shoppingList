@@ -70,6 +70,7 @@ const AddProduct = forwardRef((props, ref) => {
                 urgency: enteredValues.urgency
             };
             editProduct(editedProduct);
+            setProductToEdit(null);
             return;
         }
         const product=decorateProduct(urgency);

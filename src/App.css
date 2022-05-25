@@ -14,7 +14,6 @@
 main {
     display: flex;
     flex-direction: column;
-    height: 100vh;
 }
 
 section {
@@ -44,6 +43,7 @@ section {
 #root {
     display: flex;
     flex-direction: column;
+    height: 100vh;
 }
 
 #root > main {

@@ -1,6 +1,6 @@
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useRef } from "react";
+import { useRef, useCallback, useMemo } from "react";
 import classes from "../ShopDetails/ShopDetails.module.css";
 import AddProduct from '../../components/AddProduct/AddProduct';
 import SingleProduct from "../../components/SingleProduct/SingleProduct";
@@ -9,6 +9,8 @@ import { shopSliceActions } from "../../store/shopSlice";
 import { MdDelete } from 'react-icons/md';
 import { homePath } from "../Home/homeInfo";
 
+const getShopProducts = (products, shopId) => products.filter(product => product.shopId.includes(shopId));
+
 const ShopDetails = () => {
     const addProductRef=useRef();
     const params = useParams();
@@ -16,24 +18,26 @@ const ShopDetails = () => {
     const shopId = params.shopId;
     const history = useHistory();
 
-    const getShopProductsById = product => product.shopId.find(id => id === shopId);
-    const getShopProducts = products => products.filter(product => getShopProductsById(product));
     const products = useSelector(state => state.products.products);
-    const shopProducts = getShopProducts(products);
+    const shopProducts = useMemo(() => getShopProducts(products, shopId), [products, shopId]);
     const shops = useSelector(state => state.shops);
     const selectedShop = shops.find(shop => shop.shopId === shopId);
-    const highUrgencyProducts = shopProducts?.filter(product => product.urgency === "high");
-    const mediumUrgencyProducts = shopProducts?.filter(product => product.urgency === "medium");
-    const lowUrgencyProducts = shopProducts?.filter(product => product.urgency === "low");
+    const productList = useMemo(() => [...shopProducts].sort((a, b) => {
+        if (a.urgency === b.urgency) return 0;
+        if (a.urgency === 'high') return -1;
+        if (a.urgency === 'low') return 1;
+        if (b.urgency === 'high') return 1;
+        return -1;
+    }), [shopProducts]);
    
-    const editProduct = product => {
+    const editProduct = useCallback(product => {
         addProductRef.current.editInput(product);
-    }
+    }, [addProductRef]);
 
     const deleteShopContent = () => {
         shopProducts.forEach(({productId}) => {
             dispatch(productsSliceActions.removeProduct(productId));
-        })
+        });
         dispatch(shopSliceActions.removeShop(shopId));
         history.replace(homePath);
     }
@@ -47,15 +51,9 @@ const ShopDetails = () => {
             </button>
         </div>
         <ul className={classes.productsList}>
-            {highUrgencyProducts && highUrgencyProducts.map(product => <li key={product.productId}>
+            {productList.map(product => <li key={product.productId} className={classes.productLine}>
                 <SingleProduct product={product} editProduct={editProduct}/>
-            </li>)}  
-            {mediumUrgencyProducts && mediumUrgencyProducts.map(product => <li key={product.productId}>
-                <SingleProduct product={product} editProduct={editProduct}/>
-            </li>)} 
-            {lowUrgencyProducts && lowUrgencyProducts.map(product => <li key={product.productId}>
-                <SingleProduct product={product} editProduct={editProduct}/>
-            </li>)} 
+            </li>)}
         </ul>
     </div>
 }

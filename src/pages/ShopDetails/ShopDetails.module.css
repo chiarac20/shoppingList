@@ -12,6 +12,7 @@
     border-radius: 10px;
     border: none;
     color: rgb(7, 59, 112);
+    background-color: transparent;
 }
 
 .shopNameSection {
@@ -26,4 +27,12 @@
 
 .shopDetailsSection {
     margin: 0 1vw;
+}
+
+.productLine {
+    border-top: 1px rgb(7, 59, 112) solid;
+}
+
+.productLine:last-child {
+    border-bottom: 1px rgb(7, 59, 112) solid;
 }

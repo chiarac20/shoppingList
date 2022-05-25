@@ -5,16 +5,23 @@
     justify-content: space-between;
 }
 
-.urgency-high {
-    background-color: rgba(252, 3, 3, 0.6);
+.inputCheckbox {
+    width: 5vw;
+    height: 5vw;
+    appearance: none;
+    border: 1px rgb(7, 59, 112) solid;
 }
 
-.urgency-medium {
-    background-color: rgba(252, 240, 3, 0.7);
+.high {
+    background-color: rgb(252, 3, 3);
 }
 
-.urgency-low {
-    background-color: rgba(54, 207, 69, 0.7);
+.medium {
+    background-color: rgb(252, 240, 3);
+}
+
+.low {
+    background-color: rgb(54, 207, 69);
 }
 
 .quantity {
@@ -35,9 +42,21 @@
     background-color: inherit;
     border: none;
     color: rgb(7, 59, 112);
+    margin: 0 4vw;
 }
 
-.inputCheckbox {
-    width: 5vw;
-    height: 5vw;
+
+.inputCheckbox:checked {
+    background-color: rgb(7, 59, 112);
+}
+
+.productSection {
+    display: flex;
+    flex: 1;
+}
+
+.actionSection {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
 }
