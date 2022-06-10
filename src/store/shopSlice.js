@@ -9,11 +9,11 @@ const shopSlice = createSlice({
     reducers: {
         addShop(state, action){
             state.push(action.payload);
-            localStorage.setItem("shops", JSON.stringify(state));
+            localStorage.setItem('shops', JSON.stringify(state));
         },
         removeShop(state, action){
             const updatedState=state.filter(shop => shop.shopId!==action.payload);
-            localStorage.setItem("shops", JSON.stringify(updatedState));
+            localStorage.setItem('shops', JSON.stringify(updatedState));
             return updatedState;
         },
         changeSelection(state, action){
@@ -23,7 +23,7 @@ const shopSlice = createSlice({
         }, 
         unselectAll(state){
             const updatedState = state.map(shop => ({...shop, isSelected: false}));
-            localStorage.setItem("shops", JSON.stringify(updatedState));
+            localStorage.setItem('shops', JSON.stringify(updatedState));
             return updatedState;
         }
     }

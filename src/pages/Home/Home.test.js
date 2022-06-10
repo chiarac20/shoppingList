@@ -8,7 +8,6 @@ const Wrapper = ({children}) => <HashRouter><Provider store={store}>{children}</
 
 describe('home component should work', () => {
     it('should show the correct shops', async () => {
-        // const store = {};
         render(<Home />, {
             wrapper: Wrapper
         });
