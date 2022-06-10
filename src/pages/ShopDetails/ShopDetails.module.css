@@ -1,0 +1,38 @@
+.productsList {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0;
+}
+
+.removeShopCta {
+    margin-left: 1vw; 
+    font-size: 8vw;
+    border-radius: 10px;
+    border: none;
+    color: rgb(7, 59, 112);
+    background-color: transparent;
+}
+
+.shopNameSection {
+    display: flex;
+}
+
+.shopName {
+    text-transform: capitalize;
+    text-align: center;
+    flex: 2;
+}
+
+.shopDetailsSection {
+    margin: 0 1vw;
+}
+
+.productLine {
+    border-top: 1px rgb(7, 59, 112) solid;
+}
+
+.productLine:last-child {
+    border-bottom: 1px rgb(7, 59, 112) solid;
+}

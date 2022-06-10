@@ -3,34 +3,36 @@ import { Link } from "react-router-dom";
 
 import { MdOutlineAddShoppingCart } from 'react-icons/md';
 import classes from '../Home/Home.module.css';
+import { shopDetailsPath } from "../ShopDetails/shopDetailsInfo";
+import { addShopPath } from "../AddShop/addShopInfo";
 
 const Home = () => {
     const shops=useSelector(state => state.shops);
     const products=useSelector(state => state.products.products);
 
     const filterProducts = (shopId) => {
-        const filteredByShop = products.filter(product => product.shopId === shopId);
-        const filteredByUrgency = filteredByShop.filter(product => product.urgency === 'high');
-        return {filteredByShop, filteredByUrgency};
+        const getShopProductsById = product => product.shopId.find(id => id === shopId);
+        const getShopProducts = products => products.filter(product => getShopProductsById(product));
+        const filteredProducts = getShopProducts(products).filter(product => product.urgency === 'high');
+        return filteredProducts;
     }
 
     return <>
         <ul className={classes.shopList}>
         {shops.map(shop => {
-            return <li key={shop.shopId} className={classes.shop} onClick={() => console.log('click shop')}>
-                <div className={classes.shopName}>{shop.shopName}</div> 
-                <div className={classes.urgentProducts}>
-                    {filterProducts(shop.shopId).filteredByUrgency.length > 0 ? `${filterProducts(shop.shopId).filteredByUrgency.length} urgent` : ''}
-                </div>
-                {filterProducts(shop.shopId).filteredByShop.map(product => <div key={product.productId}>
-                    {product.productName}
-                </div>)}
+            return <li key={shop.shopId}>
+                <Link to={`/${shop.shopId}${shopDetailsPath}`} className={classes.shop}>
+                    <div className={classes.shopName}>{shop.shopName}</div> 
+                    <div className={classes.urgentProducts}>
+                        {filterProducts(shop.shopId).length > 0 ? `${filterProducts(shop.shopId).length} urgent` : <div className={classes.nothingUrgent}>Nothing urgent</div>}
+                    </div>
+                </Link>
             </li>
         })}
-            <Link to="/add-shop" className={`${classes.shop} ${classes.trolley}`}> 
-                <MdOutlineAddShoppingCart />
-            </Link>
-        </ul>      
+        </ul>
+        <Link to={addShopPath} className={`${classes.shop} ${classes.trolley}`}> 
+            <MdOutlineAddShoppingCart />
+        </Link>  
     </>
 }
 

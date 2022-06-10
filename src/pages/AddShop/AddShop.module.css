@@ -1,18 +1,33 @@
 .shopInputSection {
     margin: 3vw;
     display: flex;
-    justify-content: space-between;
+    font-size: 1.2em;
 }
 
 .shopInputLabel {
-    font-size: 1.2em;
-    margin: 3vw;
+    margin: 0 4vw;
 }
 
 .shopInput {
-    font-size: 1.2em;
     color: rgb(7, 59, 112);
     padding: 2vw;
     border-radius: 10px;
     border: 1px rgb(7, 59, 112) solid;
+    font-size: 1em;
+}
+
+.shopInput:focus{
+    outline: none;
+    background: radial-gradient(rgba(28, 127, 227, 0.2), rgba(28, 127, 227, 0.5));
+}
+
+.addCta {
+    border:1px rgb(7, 59, 112) solid;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1em;
+    color: rgb(7, 59, 112);
+    margin: 0 4vw;
+    padding: 3vw;
+    background: radial-gradient(rgba(28, 127, 227, 0.2), rgba(28, 127, 227, 0.6));
 }

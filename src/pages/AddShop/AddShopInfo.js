@@ -1,1 +1,1 @@
-export const AddShopPath='/add-product/add-a-shop';
+export const addShopPath="/add-a-shop";

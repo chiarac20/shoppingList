@@ -1,60 +1,39 @@
-import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, Route, useLocation, useHistory } from 'react-router-dom';
+import { Link, Route, useLocation } from 'react-router-dom';
 
 import AddShop from "../AddShop/AddShop";
 import { shopSliceActions } from "../../store/shopSlice";
-import { productsSliceActions } from "../../store/productsSlice";
-import { AddShopPath } from "../AddShop/AddShopInfo";
+import { addShopPath } from "../AddShop/addShopInfo";
 import classes from './AddProduct.module.css';
+import SingleShop from "../../components/SingleShop/SingleShop";
+import AddProduct from "../../components/AddProduct/AddProduct";
 
-const AddProduct = () => {
-    const inputRef=useRef();
+const AddProductPage = () => {
+
     const dispatch=useDispatch();
     const location=useLocation();
-    const history=useHistory();
     const shops=useSelector(state => state.shops);
-    let shopInfo;
+    const selectedShops = shops?.filter(shop => shop.isSelected) || [];
+    const shopIds=selectedShops?.map(shop => shop.shopId) || [];
     
-    
-    const onProductAdded = (evt) => { 
-        evt.preventDefault(); 
-        const productName=inputRef.current.value;
-        if(!productName.trim()) {
-            inputRef.current.focus();
-            return;
-        }
-        const productId = Math.random().toFixed(8).substring(2);
-        const productInfo = {productName, productQuantity: 1, productId, shopId: shopInfo.shopId, urgency: 'medium'}
-        dispatch(productsSliceActions.addProduct(productInfo));
-        dispatch(shopSliceActions.addShop(shopInfo));
-        history.push("/homepage");
-    }
-
-    const onShopSelected = (shopData) => {
-        inputRef.current.focus();
-        shopInfo = shopData;
+    const shopClickHandler = (shopId) => {
+        dispatch(shopSliceActions.changeSelection(shopId));
     }
 
     return <>
+        <h2 className={classes.title}>Add a product to multiple shops</h2>
         <div className={classes.shopsSection}>
-            {shops.map(shop => <li key={shop.shopId} 
-            className={classes.shopName} 
-                onClick={() => onShopSelected(shop)}>
-                {shop.shopName}
-            </li>)}
-            {location.pathname!=={AddShopPath} && <Link to={AddShopPath} className={`${classes.shopName} ${classes.addShopCta}`}>
+            {shops.map(shop => <SingleShop key={shop.shopId} shop={shop} onShopClicked={() => shopClickHandler(shop.shopId)}/>)}
+            {location.pathname==={addShopPath} || <Link to={addShopPath} className={classes.addShopCta}>
                 Add a new shop
             </Link>}
         </div>
-        <Route path={AddShopPath}>
-                <AddShop onShopAdded={(shopData) => shopInfo = shopData}/>
+        <Route path={addShopPath}>
+            <AddShop />
         </Route>
-        <form onSubmit={(evt) => onProductAdded(evt)} className={classes.productInputSection}>
-            <label htmlFor="product" className={classes.productInputLabel}>Add product</label>
-            <input type="text" id="product" ref={inputRef} className={classes.productInput}/>
-        </form>
+        <h3 className={classes.addProductSubtitle}>Add a product to all selected shops</h3>
+        <AddProduct shopIds={shopIds}/>
     </>
 }
 
-export default AddProduct;
+export default AddProductPage;
